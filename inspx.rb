@@ -3,7 +3,7 @@
 
 
 # read target file
-def readFile(fileLocation)
+def fileToArray(fileLocation)
     records =  Array.new
     f = File.open(fileLocation, "r")
     f.each_line do |line|
@@ -18,6 +18,6 @@ if ARGV.size == 0
     abort "you need argument"
 end
 
-puts readFile(ARGV[0])
+puts fileToArray(ARGV[0])
 
 
