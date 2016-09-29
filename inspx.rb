@@ -24,10 +24,14 @@ def findMatchedResults(records, pattern)
 end
 
 
+
 if ARGV.size == 0
     abort "you need argument"
 end
 
+rules = fileToArray("rules/001.rule")
+
+puts rules
 puts findMatchedResults(fileToArray(ARGV[0]), "spring")
 
 
