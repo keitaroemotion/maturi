@@ -10,4 +10,5 @@ Human has sin. Human is error prone, it is obvious as a blue sky.
 
 Formatters are not perfect inspector, for it does not evaluate the
 
-`data itself` but merely formats.
+`data itself` but merely formats. 
+
