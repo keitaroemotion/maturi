@@ -3,6 +3,7 @@
 # @author Kei Sugano
 # @special_thanks Matsuri Takahashi
 
+require 'colorize'
 require 'yomu'
 require 'ostruct'
 
@@ -46,7 +47,7 @@ class Inspector
           end 
         end
         if(line.include?(keyword))
-          return results.push([line, "Incorrect: #{keyword}"])
+          return results.push([line.gsub!(keyword, keyword.red), "Incorrect: #{keyword}"])
         end 
       end 
     end
