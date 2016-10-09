@@ -26,7 +26,7 @@ class Inspector
     records.each do |record| 
       if(record.include?(pattern))
         results.push record
-		  end
+      end
     end
     return results
   end
