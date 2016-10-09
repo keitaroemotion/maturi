@@ -19,3 +19,4 @@ Special Thanks
 Matsuri Takahashi
 
 This script is for her, and all the workers suffering under Japenese conservative corporate society.
+We will never forget her. http://mainichi.jp/articles/20161008/k00/00m/040/117000c
