@@ -4,13 +4,13 @@ require 'yomu'
 
 class Inspector
   def self.fileToArray(fileLocation, records= Array.new)
-	  f = File.open(fileLocation, "r")
-		f.each_line do |line|
-		  records.push line   
-		end
-	  f.close
-	  return records
-	end
+    f = File.open(fileLocation, "r")
+    f.each_line do |line|
+      records.push line   
+    end
+    f.close
+    return records
+  end
 
   def self.getMSFile(file)
       data = File.read(file)
