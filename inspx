@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+
+class Inspector
+	def self.fileToArray(fileLocation, records= Array.new)
+			f = File.open(fileLocation, "r")
+			f.each_line do |line|
+				records.push line   
+			end
+			f.close
+			return records
+	end
+
+	def self.findMatchedResults(records, pattern, results = Array.new
+)
+			records.each do |record|
+					if(record.include?(pattern))
+							results.push record
+					end
+			end
+			return results
+	end
+
+end
+
+rules = Inspector.fileToArray("rules/001.rule")
+
+puts
+puts "----------------------"
+puts rules
+#puts Inspector.findMatchedResults(Inspector.fileToArray(ARGV[0]), "spring")
+
+
