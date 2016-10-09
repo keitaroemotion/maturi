@@ -4,6 +4,7 @@
 # @special_thanks Matsuri Takahashi
 
 require 'yomu'
+require 'ostruct'
 
 class Inspector
   def self.fileToArray(fileLocation, records= Array.new)
@@ -20,8 +21,8 @@ class Inspector
       text = Yomu.read :text, data
       metadata = Yomu.read :metadata, data
       mimetype = Yomu.read :mimetype, data
-      puts metadata
-      puts text
+      Struct.new("DocumentStatus", :metadata, :text, :mimetype)
+      return Struct::DocumentStatus.new(metadata, text.split(/[\r\n]+/), mimetype)
   end 
 
   def self.findMatchedResults(records, pattern, results = Array.new
@@ -34,12 +35,35 @@ class Inspector
     return results
   end
 
+  def self.checkLine(line, rules, results)
+    rules.each do |rule|
+      rsp = rule.split(' ')
+      if(rsp[0].start_with?("matches:"))
+        keyword = rsp[0].gsub!("matches:", "")
+        if(rsp[1].start_with?("excludes:"))
+          if line.include?(rsp[1].gsub!("excludes:", ""))
+            return results  
+          end 
+        end
+        if(line.include?(keyword))
+          return results.push([line, "Incorrect: #{keyword}"])
+        end 
+      end 
+    end
+    return results
+  end
 end
-
 
 rules = Inspector.fileToArray("rules/001.rule")
 data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
+arr = []
+rules = ["matches:サーバ excludes:サーバー"]
+data.text.each do |line|
+  arr = (Inspector.checkLine(line, rules, arr))
+end
+
 puts
+puts arr
 puts "----------------------"
 puts rules
 #puts Inspector.findMatchedResults(Inspector.fileToArray(ARGV[0]), "spring")
