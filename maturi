@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'yomu'
 
 class Inspector
 	def self.fileToArray(fileLocation, records= Array.new)
@@ -10,6 +11,15 @@ class Inspector
 			f.close
 			return records
 	end
+
+  def self.getMSFile(file)
+      data = File.read(file)
+      text = Yomu.read :text, data
+      metadata = Yomu.read :metadata, data
+      mimetype = Yomu.read :mimetype, data
+      puts metadata
+      puts text
+  end 
 
 	def self.findMatchedResults(records, pattern, results = Array.new
 )
@@ -23,8 +33,9 @@ class Inspector
 
 end
 
-rules = Inspector.fileToArray("rules/001.rule")
 
+rules = Inspector.fileToArray("rules/001.rule")
+data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
 puts
 puts "----------------------"
 puts rules

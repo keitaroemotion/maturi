@@ -12,6 +12,13 @@ Formatters are not perfect inspectors, for it does not evaluate the
 
 `data itself` but merely formats. 
 
+
+-----------------
+How to use
+-----------------
+
+$gem install yomu
+
 -----------------
 Special Thanks 
 -----------------
