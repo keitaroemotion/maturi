@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+@author Kei Sugano
+@special_thanks Matsuri Takahashi
+
 require 'yomu'
 
 class Inspector
