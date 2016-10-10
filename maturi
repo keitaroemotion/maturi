@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+# lazy lives matter
 # @author Kei Sugano
 # @special_thanks Matsuri Takahashi
 
@@ -49,7 +50,7 @@ rules = Inspector.fileToArray("rules/001.rule")
 data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
 arr = []
 data.text.each do |line|
-  arr = (Inspector.checkLine(line, rules, arr))
+  arr = Inspector.checkLine(line, rules, arr)
 end
 
 puts
