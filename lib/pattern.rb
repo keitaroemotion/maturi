@@ -1,13 +1,22 @@
 class Pattern
 
-  def self.findMatch(rule, line, results, index, matches="matches:", excludes="excludes:")
+  Struct.new("Tokens", :head, :tail)
+
+  def self.tokenize(rule)
     rsp = rule.split(' ')
-    head = rsp[0]
-    tail = rsp[1]
-    if(head.start_with?(matches))
-      keyword = head.gsub!(matches, "")
-      if(tail.start_with?(excludes))
-        if line.include?(tail.gsub!(excludes, ""))
+    return Struct::Tokens.new(rsp[0], rsp[1])
+  end
+
+  def self.trimWord(text, keyword)
+    return text.gsub!(keyword, "").chomp
+  end
+
+  def self.findMatch(rule, line, results, index, matches="matches:", excludes="excludes:")
+    rules = tokenize(rule)
+    if(rules.head.start_with?(matches))
+      keyword = trimWord(rules.head, matches)
+      if(rules.tail.start_with?(excludes))
+        if line.include?(rules.tail.gsub!(excludes, ""))
           return results  
         end 
       end
@@ -19,8 +28,9 @@ class Pattern
   end
 
 	def self.findAbsentWord(arr, rule, data, lacks="lacks:")
-		if rule.start_with?(lacks)
-			kw = rule.gsub!(lacks, "").chomp
+    rules = tokenize(rule)
+		if rules.head.start_with?(lacks)
+			kw = trimWord(rule, lacks)
 			if(!data.rawtext.include?(kw))
 				arr.push "[lacks] #{kw.red}"
 			end
