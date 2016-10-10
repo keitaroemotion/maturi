@@ -12,17 +12,17 @@ class Pattern
         end 
       end
       if(line.include?(keyword))
-        return results.push([line.gsub!(keyword, keyword.red), "Incorrect: #{keyword} Line: #{index}"])
+        return results.push("[incorrect]\n  Term:#{keyword.red} \n  Line: #{index.to_s.green} \n  本文:" + line.gsub!(keyword, keyword).yellow)
       end 
     end
     return results
   end
 
-	def self.findAbsentWord(arr, rule, data)
-		if rule.start_with?("lacks:")
-			kw = rule.gsub!("lacks:", "").chomp
+	def self.findAbsentWord(arr, rule, data, lacks="lacks:")
+		if rule.start_with?(lacks)
+			kw = rule.gsub!(lacks, "").chomp
 			if(!data.rawtext.include?(kw))
-				arr.push "> #{kw}"
+				arr.push "[lacks] #{kw.red}"
 			end
 		end
 		return arr
