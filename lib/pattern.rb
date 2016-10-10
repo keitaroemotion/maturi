@@ -1,4 +1,5 @@
 class Pattern
+
   def self.findMatch(rule, line, results, matches="matches:", excludes="excludes:")
     rsp = rule.split(' ')
     head = rsp[0]
@@ -16,4 +17,15 @@ class Pattern
     end
     return results
   end
+
+	def self.findAbsentWord(arr, rule, data)
+		if rule.start_with?("lacks:")
+			kw = rule.gsub!("lacks:", "").chomp
+			if(!data.rawtext.include?(kw))
+				arr.push "> #{kw}"
+			end
+		end
+		return arr
+	end
+
 end

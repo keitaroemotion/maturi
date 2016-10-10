@@ -24,8 +24,8 @@ class Inspector
       text = Yomu.read :text, data
       metadata = Yomu.read :metadata, data
       mimetype = Yomu.read :mimetype, data
-      Struct.new("DocumentStatus", :metadata, :text, :mimetype)
-      return Struct::DocumentStatus.new(metadata, text.split(/[\r\n]+/), mimetype)
+      Struct.new("DocumentStatus", :metadata, :text, :rawtext, :mimetype)
+      return Struct::DocumentStatus.new(metadata, text.split(/[\r\n]+/), text, mimetype)
   end 
 
   def self.findMatchedResults(records, pattern, results = Array.new
@@ -49,6 +49,12 @@ end
 rules = Inspector.fileToArray("rules/001.rule")
 data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
 arr = []
+
+rules.each do |rule|
+  arr = Pattern.findAbsentWord(arr, rule, data)
+end
+
+# parsed data
 data.text.each do |line|
   arr = Inspector.checkLine(line, rules, arr)
 end
