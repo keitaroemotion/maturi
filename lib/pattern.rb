@@ -1,6 +1,6 @@
 class Pattern
 
-  def self.findMatch(rule, line, results, matches="matches:", excludes="excludes:")
+  def self.findMatch(rule, line, results, index, matches="matches:", excludes="excludes:")
     rsp = rule.split(' ')
     head = rsp[0]
     tail = rsp[1]
@@ -12,7 +12,7 @@ class Pattern
         end 
       end
       if(line.include?(keyword))
-        return results.push([line.gsub!(keyword, keyword.red), "Incorrect: #{keyword}"])
+        return results.push([line.gsub!(keyword, keyword.red), "Incorrect: #{keyword} Line: #{index}"])
       end 
     end
     return results

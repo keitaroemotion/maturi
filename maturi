@@ -38,9 +38,9 @@ class Inspector
     return results
   end
 
-  def self.checkLine(line, rules, results)
+  def self.checkLine(line, rules, results, index)
     rules.each do |rule|
-      results = Pattern.findMatch(rule, line, results)
+      results = Pattern.findMatch(rule, line, results, index)
     end
     return results
   end
@@ -55,8 +55,10 @@ rules.each do |rule|
 end
 
 # parsed data
+index = 0
 data.text.each do |line|
-  arr = Inspector.checkLine(line, rules, arr)
+  arr = Inspector.checkLine(line, rules, arr, index)
+  index = index + 1
 end
 
 puts
