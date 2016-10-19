@@ -8,6 +8,7 @@ require 'colorize'
 require 'yomu'
 require 'ostruct'
 require './lib/pattern.rb'
+require './lib/bookmarks.rb'
 
 class Inspector
   def self.fileToArray(fileLocation, records= Array.new)
@@ -44,27 +45,48 @@ class Inspector
     end
     return results
   end
+
+  def self.matchesKeyword(result, keyword)
+     begin
+       return (result[0]+result[1]).include?(keyword)
+     rescue
+       return false
+     end
+  end
+
 end
 
-rules = Inspector.fileToArray("rules/001.rule")
-data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
-arr = []
+case ARGV[0]
+  when "check"
+		rules = Inspector.fileToArray("rules/001.rule")
+		data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
+		arr = []
 
-rules.each do |rule|
-  arr = Pattern.findAbsentWord(arr, rule, data)
-end
+		rules.each do |rule|
+			arr = Pattern.findAbsentWord(arr, rule, data)
+		end
 
-# parsed data
-index = 0
-data.text.each do |line|
-  arr = Inspector.checkLine(line, rules, arr, index)
-  index = index + 1
-end
+		# parsed data
+		index = 0
+		data.text.each do |line|
+			arr = Inspector.checkLine(line, rules, arr, index)
+			index = index + 1
+		end
 
-puts
-puts arr
-puts "----------------------"
-puts rules
-#puts Inspector.findMatchedResults(Inspector.fileToArray(ARGV[0]), "spring")
+		puts
+		puts arr
+		puts "----------------------"
+		puts rules
+		#puts Inspector.findMatchedResults(Inspector.fileToArray(ARGV[0]), "spring")
+  when "ffx"
+    Bookmarks::browse()
+  else 
+    puts
+		puts "you need input argument!" 
+		puts ""
+		puts "maturi [check] ... check your ppt/excel/word documents"
+		puts "maturi [ffx]"
+		puts
+  end
 
 
