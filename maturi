@@ -8,7 +8,7 @@ require 'colorize'
 require 'yomu'
 require 'ostruct'
 require '/usr/local/lib/maturi/pattern.rb'
-require '/usr/local/lib/bookmarks.rb'
+require '/usr/local/lib/maturi/bookmarks.rb'
 
 class Inspector
   def self.fileToArray(fileLocation, records= Array.new)
