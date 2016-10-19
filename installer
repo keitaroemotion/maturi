@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+echo "installing lib..."
+mkdir -p /usr/local/lib/maturi
+cp -r lib/* /usr/local/lib/maturi
+
+echo "installing rules..."
+mkdir -p  /usr/local/etc/maturi/rules
+cp -r rules/* /usr/local/etc/maturi/rules
+
+echo "installing main executable..."
+cp maturi /usr/local/bin/maturi
+
+gem install sqlite3
+gem install colorize
+gem install yomu
+gem install rubysl-ostruct
+
