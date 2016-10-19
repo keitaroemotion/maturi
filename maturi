@@ -46,14 +46,6 @@ class Inspector
     return results
   end
 
-  def self.matchesKeyword(result, keyword)
-     begin
-       return (result[0]+result[1]).include?(keyword)
-     rescue
-       return false
-     end
-  end
-
 end
 
 case ARGV[0]
