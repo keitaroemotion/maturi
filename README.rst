@@ -19,7 +19,10 @@ Formatters are not perfect inspectors, for it does not evaluate the
 How to use
 -----------------
 
-$gem install yomu
+First, install the application and dependencies with the following command:
+
+$./installer
+
 
 -----------------
 Special Thanks 
