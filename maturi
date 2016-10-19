@@ -7,8 +7,8 @@
 require 'colorize'
 require 'yomu'
 require 'ostruct'
-require './lib/pattern.rb'
-require './lib/bookmarks.rb'
+require '/usr/local/lib/maturi/pattern.rb'
+require '/usr/local/lib/bookmarks.rb'
 
 class Inspector
   def self.fileToArray(fileLocation, records= Array.new)
@@ -50,7 +50,7 @@ end
 
 case ARGV[0]
   when "check"
-		rules = Inspector.fileToArray("rules/001.rule")
+		rules = Inspector.fileToArray("/usr/local/etc/maturi/rules/001.rule")
 		data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
 		arr = []
 
