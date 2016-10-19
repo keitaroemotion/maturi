@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+echo "installing lib..."
+mkdir -p /usr/local/lib/maturi
+cp -r lib/* /usr/local/lib/maturi
+
+echo "installing rules..."
+mkdir -p  /usr/local/etc/maturi/rules
+cp -r rules/* /usr/local/etc/maturi/rules
+
+echo "installing main executable..."
+cp maturi /usr/local/bin/maturi
+
+
