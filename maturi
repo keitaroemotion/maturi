@@ -48,37 +48,60 @@ class Inspector
 
 end
 
+def find(keyword, directory, option="")
+  Dir["#{directory}/*"].each do |element|
+    filename = File.basename(element)	  
+    if(filename.start_with?(keyword))	  
+      puts File.dirname("#{element}") + "\n\n#{filename}\n"	    
+      print "this one? [y/n]:"
+      if($stdin.gets.chomp == "y") 
+        system "vim #{element}"
+	abort
+      end
+    end  
+    if(File.directory?(element))
+      find(keyword, element)      
+    end
+  end	  
+end
+
+def getDirectory(argument)
+  return argument != nil && File.directory?(argument) ? argument : Dir.pwd 
+end
+
 case ARGV[0]
+  when "edit"	
+    find(ARGV[1], Dir.pwd)
   when "check"
-		rules = Inspector.fileToArray("/usr/local/etc/maturi/rules/001.rule")
-		data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
-		arr = []
+    rules = Inspector.fileToArray("/usr/local/etc/maturi/rules/001.rule")
+    data  = Inspector.getMSFile("target/powerpoint/sampleppt.ppt")
+    arr = []
 
-		rules.each do |rule|
-			arr = Pattern.findAbsentWord(arr, rule, data)
-		end
+    rules.each do |rule|
+      arr = Pattern.findAbsentWord(arr, rule, data)
+    end
 
-		# parsed data
-		index = 0
-		data.text.each do |line|
-			arr = Inspector.checkLine(line, rules, arr, index)
-			index = index + 1
-		end
+    # parsed data
+    index = 0
+    data.text.each do |line|
+      arr = Inspector.checkLine(line, rules, arr, index)
+      index = index + 1
+    end
 
-		puts
-		puts arr
-		puts "----------------------"
-		puts rules
-		#puts Inspector.findMatchedResults(Inspector.fileToArray(ARGV[0]), "spring")
+    puts
+    puts arr
+    puts "----------------------"
+    puts rules
+    #puts Inspector.findMatchedResults(Inspector.fileToArray(ARGV[0]), "spring")
   when "ffx"
     Bookmarks::browse()
   else 
     puts
-		puts "you need input argument!" 
-		puts ""
-		puts "maturi [check] ... check your ppt/excel/word documents"
-		puts "maturi [ffx]"
-		puts
+    puts "you need input argument!" 
+    puts ""
+    puts "maturi [check] ... check your ppt/excel/word documents"
+    puts "maturi [ffx]"
+    puts
   end
 
 
