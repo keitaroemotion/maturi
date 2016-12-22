@@ -27,15 +27,15 @@ class Pattern
     return results
   end
 
-	def self.findAbsentWord(arr, rule, data, lacks="lacks:")
+  def self.findAbsentWord(arr, rule, data, lacks="lacks:")
     rules = tokenize(rule)
-		if rules.head.start_with?(lacks)
-			kw = fitWord(rules.head, lacks)
-			if(!data.rawtext.include?(kw))
-				arr.push "[lacks] #{kw.red} \n  #{rules.tail}"
-			end
-		end
-		return arr
-	end
+    if rules.head.start_with?(lacks)
+      kw = fitWord(rules.head, lacks)
+      if(!data.rawtext.include?(kw))
+        arr.push "[lacks] #{kw.red} \n  #{rules.tail}"
+      end
+    end
+    return arr
+  end
 
 end
